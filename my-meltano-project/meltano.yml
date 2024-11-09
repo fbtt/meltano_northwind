@@ -32,6 +32,7 @@ plugins:
       host: localhost
       port: 5432
       user: northwind_user
+      password: thewindisblowing  # TODO: commited only to easily reproduce. In prod, it must be moved to a .env file
       filter_schemas:
       - public
       default_replication_method: FULL_TABLE
@@ -93,6 +94,7 @@ plugins:
       host: localhost
       port: 5433
       user: user
+      password: password  # TODO: commited only to easily reproduce. In prod, it must be moved to a .env file
       default_target_schema: default
       load_method: overwrite
 
