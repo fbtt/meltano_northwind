@@ -1,4 +1,6 @@
 version: 1
+env:
+  DBT_CLEAN_PROJECT_FILES_ONLY: "false"
 default_environment: dev
 project_id: 1abbf325-dd90-47d2-a657-e1ef66f2bd8a
 environments:
@@ -31,7 +33,7 @@ plugins:
       host: localhost
       port: 5432
       user: northwind_user
-      password: thewindisblowing  # TODO: commited only to easily reproduce. In prod, it must be moved to a .env file
+      password: thewindisblowing  # TODO: Committed for reproducibility purposes only. In production, move to a .env file.
       filter_schemas:
       - public
       default_replication_method: FULL_TABLE
@@ -128,9 +130,21 @@ plugins:
       host: localhost
       port: 5433
       user: user
-      password: password  # TODO: commited only to easily reproduce. In prod, it must be moved to a .env file
+      password: password  # TODO: Committed for reproducibility purposes only. In production, move to a .env file.
       default_target_schema: default
       load_method: overwrite
+
+  utilities:
+  - name: dbt-postgres
+    variant: dbt-labs
+    pip_url: dbt-core dbt-postgres meltano-dbt-ext~=0.3.0
+    config:
+      host: localhost
+      port: 5433
+      user: user
+      password: password  # TODO: Committed for reproducibility purposes only. In production, move to a .env file.
+      dbname: pg_target
+      schema: analytics
 
 jobs:
 - name: pipe-step1-northwind

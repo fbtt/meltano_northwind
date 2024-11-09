@@ -1,0 +1,12 @@
+version: 2
+
+models:
+  - name: fact_order_details
+    description: >
+      "Fact table representing order and it's details.
+      Note: If an order has multiple details, rows should be duplicated accordingly."
+    columns:
+      - name: order_id
+        description: "TODO"
+        data_tests:
+          - not_null

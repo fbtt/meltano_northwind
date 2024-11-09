@@ -1,0 +1,19 @@
+config-version: 2
+version: 2
+sources:
+  - name: default
+    description: Consolidated PostgreSQL database combining data from the Northwind database and order_details.csv.
+    schema: default
+    tables:
+      - name: categories
+      - name: customers
+      - name: employee_territories
+      - name: employees
+      - name: order_details
+      - name: orders
+      - name: products
+      - name: region
+      - name: shippers
+      - name: suppliers
+      - name: territories
+      - name: us_states
