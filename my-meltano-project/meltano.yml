@@ -1,0 +1,115 @@
+version: 1
+default_environment: dev
+project_id: 1abbf325-dd90-47d2-a657-e1ef66f2bd8a
+environments:
+- name: dev
+- name: staging
+- name: prod
+
+plugins:
+  extractors:
+  - name: source-step1-details
+    inherit_from: tap-csv
+    variant: meltanolabs
+    pip_url: git+https://github.com/MeltanoLabs/tap-csv.git
+    config:
+      files:
+      - entity: order_details
+        path: 
+          /home/battisti/Documents/personal_workspace/meltano_northwind/code-main/data/order_details.csv
+        keys:
+        - order_id
+        - product_id
+        - unit_price
+        - quantity
+        - discount
+  - name: source-step1-northwind
+    inherit_from: tap-postgres
+    variant: meltanolabs
+    pip_url: git+https://github.com/MeltanoLabs/tap-postgres.git
+    config:
+      database: northwind
+      host: localhost
+      port: 5432
+      user: northwind_user
+      filter_schemas:
+      - public
+      default_replication_method: FULL_TABLE
+  - name: source-step2-details
+    inherit_from: tap-csv
+    variant: meltanolabs
+    pip_url: git+https://github.com/MeltanoLabs/tap-csv.git
+    config:
+      files:
+      - entity: order_details
+        path: 
+          /home/battisti/Documents/personal_workspace/meltano_northwind/local_data/step1_details/2024-11-09/order_details.csv
+        keys:
+        - order_id
+        - product_id
+  - name: source-step2-northwind
+    inherit_from: tap-csv
+    variant: meltanolabs
+    pip_url: git+https://github.com/MeltanoLabs/tap-csv.git
+    config:
+      files:
+      - entity: public-us_states
+        path: /home/battisti/Documents/personal_workspace/meltano_northwind/local_data/step1_northwind/2024-11-09/public-us_states.csv
+        keys:
+        - state_id
+      - entity: public-territories
+        path: /home/battisti/Documents/personal_workspace/meltano_northwind/local_data/step1_northwind/2024-11-09/public-territories.csv
+        keys:
+        - territory_id
+        - region_id
+      - entity: public-suppliers
+        path: /home/battisti/Documents/personal_workspace/meltano_northwind/local_data/step1_northwind/2024-11-09/public-suppliers.csv
+        keys:
+        - supplier_id
+  loaders:
+  - name: target-step1-northwind
+    inherit_from: target-csv
+    variant: meltanolabs
+    pip_url: git+https://github.com/MeltanoLabs/target-csv.git
+    config:
+      destination_path: 
+        /home/battisti/Documents/personal_workspace/meltano_northwind/local_data/step1_northwind
+      # file_naming_scheme: '{timestamp}/{stream_name}.csv'
+      file_naming_scheme: '{datestamp}/{stream_name}.csv'
+  - name: target-step1-details
+    inherit_from: target-csv
+    variant: meltanolabs
+    pip_url: git+https://github.com/MeltanoLabs/target-csv.git
+    config:
+      destination_path: /home/battisti/Documents/personal_workspace/meltano_northwind/local_data/step1_details
+      # file_naming_scheme: '{timestamp}/{stream_name}.csv'
+      file_naming_scheme: '{datestamp}/{stream_name}.csv'
+  - name: target-step2-northwind
+    inherit_from: target-postgres
+    variant: meltanolabs
+    pip_url: meltanolabs-target-postgres
+    config:
+      database: pg_target
+      host: localhost
+      port: 5433
+      user: user
+      default_target_schema: default
+      load_method: overwrite
+
+jobs:
+- name: pipe-step1-northwind
+  tasks:
+  - source-step1-northwind
+  - target-step1-northwind
+- name: pipe-step1-details
+  tasks:
+  - source-step1-details
+  - target-step1-details
+- name: pipe-step2-northwind
+  tasks:
+  - source-step2-northwind
+  - target-step2-northwind
+- name: pipe-step2-details
+  tasks:
+  - source-step2-details
+  - target-step2-northwind

@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:12
+    environment:
+      POSTGRES_DB: northwind
+      POSTGRES_USER: northwind_user
+      POSTGRES_PASSWORD: thewindisblowing
+    volumes:
+      - ./dbdata:/var/lib/postgresql/data
+      - ./data/northwind.sql:/docker-entrypoint-initdb.d/northwind.sql
+    ports:
+      - 5432:5432
+  db_final:
+    image: postgres:12
+    environment:
+      POSTGRES_DB: pg_target
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    volumes:
+      - ./dbdata_target:/var/lib/postgresql/data
+      - ./data/db_final.sql:/docker-entrypoint-initdb.d/db_final.sql
+    ports:
+      - 5433:5432
