@@ -52,19 +52,56 @@ plugins:
     pip_url: git+https://github.com/MeltanoLabs/tap-csv.git
     config:
       files:
-      - entity: public-us_states
-        path: ${MELTANO_PROJECT_ROOT}/local_data/step1_northwind/public-us_states/${RUN_DATE}.csv
+      - entity: public-categories
+        path: ${MELTANO_PROJECT_ROOT}/local_data/step1_northwind/public-categories/${RUN_DATE}.csv
         keys:
-        - state_id
+        - category_id
+      - entity: public-customers
+        path: ${MELTANO_PROJECT_ROOT}/local_data/step1_northwind/public-customers/${RUN_DATE}.csv
+        keys:
+        - customer_id
+      - entity: public-employee_territories
+        path: ${MELTANO_PROJECT_ROOT}/local_data/step1_northwind/public-employee_territories/${RUN_DATE}.csv
+        keys:
+        - employee_id
+        - territory_id
+      - entity: public-employees
+        path: ${MELTANO_PROJECT_ROOT}/local_data/step1_northwind/public-employees/${RUN_DATE}.csv
+        keys:
+        - employee_id
+      - entity: public-orders
+        path: ${MELTANO_PROJECT_ROOT}/local_data/step1_northwind/public-orders/${RUN_DATE}.csv
+        keys:
+        - order_id
+        - customer_id
+        - employee_id
+      - entity: public-products
+        path: ${MELTANO_PROJECT_ROOT}/local_data/step1_northwind/public-products/${RUN_DATE}.csv
+        keys:
+        - product_id
+        - supplier_id
+      - entity: public-region
+        path: ${MELTANO_PROJECT_ROOT}/local_data/step1_northwind/public-region/${RUN_DATE}.csv
+        keys:
+        - region_id
+      - entity: public-shippers
+        path: ${MELTANO_PROJECT_ROOT}/local_data/step1_northwind/public-shippers/${RUN_DATE}.csv
+        keys:
+        - shipper_id
+      - entity: public-suppliers
+        path: ${MELTANO_PROJECT_ROOT}/local_data/step1_northwind/public-suppliers/${RUN_DATE}.csv
+        keys:
+        - supplier_id
       - entity: public-territories
         path: ${MELTANO_PROJECT_ROOT}/local_data/step1_northwind/public-territories/${RUN_DATE}.csv
         keys:
         - territory_id
         - region_id
-      - entity: public-suppliers
-        path: ${MELTANO_PROJECT_ROOT}/local_data/step1_northwind/public-suppliers/${RUN_DATE}.csv
+      - entity: public-us_states
+        path: ${MELTANO_PROJECT_ROOT}/local_data/step1_northwind/public-us_states/${RUN_DATE}.csv
         keys:
-        - supplier_id
+        - state_id
+
   loaders:
   - name: target-step1-northwind
     inherit_from: target-csv
