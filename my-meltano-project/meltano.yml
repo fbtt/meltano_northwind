@@ -16,7 +16,7 @@ plugins:
       files:
       - entity: order_details
         path: 
-          /home/battisti/Documents/personal_workspace/meltano_northwind/code-main/data/order_details.csv
+          /home/battisti/Documents/personal_workspace/meltano_northwind/my-meltano-project/code-main/data/order_details.csv
         keys:
         - order_id
         - product_id
@@ -44,7 +44,7 @@ plugins:
       files:
       - entity: order_details
         path: 
-          /home/battisti/Documents/personal_workspace/meltano_northwind/local_data/step1_details/2024-11-09/order_details.csv
+          /home/battisti/Documents/personal_workspace/meltano_northwind/my-meltano-project/local_data/step1_details/2024-11-09/order_details.csv
         keys:
         - order_id
         - product_id
@@ -55,16 +55,16 @@ plugins:
     config:
       files:
       - entity: public-us_states
-        path: /home/battisti/Documents/personal_workspace/meltano_northwind/local_data/step1_northwind/2024-11-09/public-us_states.csv
+        path: /home/battisti/Documents/personal_workspace/meltano_northwind/my-meltano-project/local_data/step1_northwind/2024-11-09/public-us_states.csv
         keys:
         - state_id
       - entity: public-territories
-        path: /home/battisti/Documents/personal_workspace/meltano_northwind/local_data/step1_northwind/2024-11-09/public-territories.csv
+        path: /home/battisti/Documents/personal_workspace/meltano_northwind/my-meltano-project/local_data/step1_northwind/2024-11-09/public-territories.csv
         keys:
         - territory_id
         - region_id
       - entity: public-suppliers
-        path: /home/battisti/Documents/personal_workspace/meltano_northwind/local_data/step1_northwind/2024-11-09/public-suppliers.csv
+        path: /home/battisti/Documents/personal_workspace/meltano_northwind/my-meltano-project/local_data/step1_northwind/2024-11-09/public-suppliers.csv
         keys:
         - supplier_id
   loaders:
@@ -74,7 +74,7 @@ plugins:
     pip_url: git+https://github.com/MeltanoLabs/target-csv.git
     config:
       destination_path: 
-        /home/battisti/Documents/personal_workspace/meltano_northwind/local_data/step1_northwind
+        /home/battisti/Documents/personal_workspace/meltano_northwind/my-meltano-project/local_data/step1_northwind
       # file_naming_scheme: '{timestamp}/{stream_name}.csv'
       file_naming_scheme: '{datestamp}/{stream_name}.csv'
   - name: target-step1-details
@@ -82,7 +82,7 @@ plugins:
     variant: meltanolabs
     pip_url: git+https://github.com/MeltanoLabs/target-csv.git
     config:
-      destination_path: /home/battisti/Documents/personal_workspace/meltano_northwind/local_data/step1_details
+      destination_path: /home/battisti/Documents/personal_workspace/meltano_northwind/my-meltano-project/local_data/step1_details
       # file_naming_scheme: '{timestamp}/{stream_name}.csv'
       file_naming_scheme: '{datestamp}/{stream_name}.csv'
   - name: target-step2-northwind
