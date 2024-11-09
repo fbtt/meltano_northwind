@@ -42,7 +42,7 @@ plugins:
     config:
       files:
       - entity: order_details
-        path: ${MELTANO_PROJECT_ROOT}/local_data/step1_details/order_details/2024-11-09.csv
+        path: ${MELTANO_PROJECT_ROOT}/local_data/step1_details/order_details/${RUN_DATE}.csv
         keys:
         - order_id
         - product_id
@@ -53,16 +53,16 @@ plugins:
     config:
       files:
       - entity: public-us_states
-        path: ${MELTANO_PROJECT_ROOT}/local_data/step1_northwind/public-us_states/2024-11-09.csv
+        path: ${MELTANO_PROJECT_ROOT}/local_data/step1_northwind/public-us_states/${RUN_DATE}.csv
         keys:
         - state_id
       - entity: public-territories
-        path: ${MELTANO_PROJECT_ROOT}/local_data/step1_northwind/public-territories/2024-11-09.csv
+        path: ${MELTANO_PROJECT_ROOT}/local_data/step1_northwind/public-territories/${RUN_DATE}.csv
         keys:
         - territory_id
         - region_id
       - entity: public-suppliers
-        path: ${MELTANO_PROJECT_ROOT}/local_data/step1_northwind/public-suppliers/2024-11-09.csv
+        path: ${MELTANO_PROJECT_ROOT}/local_data/step1_northwind/public-suppliers/${RUN_DATE}.csv
         keys:
         - supplier_id
   loaders:
